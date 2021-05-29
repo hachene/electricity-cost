@@ -1,29 +1,32 @@
-import { Layout } from '@src/components/layout'
-import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import React from 'react'
-import utilStyles from '../styles/utils.module.css'
+import utilStyles from '@src/styles/utils.module.css'
+import layoutStyles from '@src/styles/layout.module.css'
+import { getAppName } from '@src/lib/utils'
+import { PeakCost } from '@src/components/peakCost'
 
-export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const myProps = 'Hello world!'
-  return {
-    props: { myProps },
-  }
-}
+const siteTitle = getAppName()
 
-export default function Home({ myProps }: HomeProps) {
+export default function Home() {
   return (
-    <Layout home>
+    <div>
       <Head>
-        <title>My Template WebApp</title>
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="description" content="A churro app" />
+        <meta
+          property="og:image"
+          content={`https://og-image.vercel.app/${encodeURI(
+            siteTitle
+          )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
+        />
+        <meta name="og:title" content={siteTitle} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <title>¿Cuánto cuesta la luz ahora?</title>
       </Head>
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>{myProps}</h2>
-      </section>
-    </Layout>
+      <header className={layoutStyles.header}>
+        <h1 className={utilStyles.headingXl}>{siteTitle}</h1>
+      </header>
+      <PeakCost />
+    </div>
   )
-}
-
-type HomeProps = {
-  myProps: any
 }
