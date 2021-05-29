@@ -1,3 +1,3 @@
-# hn-template-app
+# 💡 ¿Cuánto cuesta la luz ahora?
 
-A churro instance
+App chorra para ver en qué franja de precios nos encontramos!
