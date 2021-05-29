@@ -24,7 +24,7 @@ export default function Home() {
     <div>
       <Head>
         <link rel="icon" href="/favicon.ico" />
-        <meta name="description" content="A churro app" />
+        <meta name="description" content="La mejor web para saber cuándo poner la lavadora" />
         <meta
           property="og:image"
           content={`https://og-image.vercel.app/${encodeURI(
