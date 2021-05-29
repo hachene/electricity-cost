@@ -13,7 +13,7 @@ export const OffpeakCost = () => (
       alt={'ilustración de una moneda'}
     />
 
-    <h1 className={utilStyles.heading2Xl}>¡Barata!</h1>
+    <h1 className={utilStyles.heading2Xl}>¡Poco!</h1>
     <h2 className={utilStyles.headingXl}>Hora valle</h2>
   </div>
 )
