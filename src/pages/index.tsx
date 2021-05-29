@@ -1,13 +1,25 @@
 import Head from 'next/head'
 import React from 'react'
-import utilStyles from '@src/styles/utils.module.css'
-import layoutStyles from '@src/styles/layout.module.css'
-import { getAppName } from '@src/lib/utils'
+import utilStyles from '../styles/utils.module.css'
+import layoutStyles from '../styles/layout.module.css'
+import { getAppName, getToday } from '@src/lib/utils'
 import { PeakCost } from '@src/components/peakCost'
+import { MediumCost } from '@src/components/mediumCost'
+import { OffpeakCost } from '@src/components/offpeakCost'
+import { CostLevel, getCurrentCost } from '@src/domain/costCalculation'
 
 const siteTitle = getAppName()
 
 export default function Home() {
+  const renderCost = () => {
+    const currentTime = getToday()
+    const costLevel = getCurrentCost(currentTime)
+
+    if (costLevel === CostLevel.high) return <PeakCost />
+    if (costLevel === CostLevel.medium) return <MediumCost />
+    return <OffpeakCost />
+  }
+
   return (
     <div>
       <Head>
@@ -26,7 +38,7 @@ export default function Home() {
       <header className={layoutStyles.header}>
         <h1 className={utilStyles.headingXl}>{siteTitle}</h1>
       </header>
-      <PeakCost />
+      {renderCost()}
     </div>
   )
 }

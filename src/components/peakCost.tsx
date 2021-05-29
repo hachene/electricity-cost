@@ -1,16 +1,15 @@
-import layoutStyles from '@src/styles/layout.module.css'
-import utilStyles from '@src/styles/utils.module.css'
+import layoutStyles from '../styles/layout.module.css'
+import utilStyles from '../styles/utils.module.css'
 import Image from 'next/image'
 
 export const PeakCost = () => (
   <div className={`${layoutStyles.semaphoreContainer} ${layoutStyles.redSemaphore}`}>
     <Image
       priority
-      src="/images/face_angry_person_man.png"
-      className={utilStyles.borderCircle}
-      height={110}
-      width={128}
-      alt={'ilustración de una moneda'}
+      src="/images/face_angry.png"
+      height={128}
+      width={125}
+      alt={'ilustración de la cara de una persona enfadada'}
     />
 
     <h1 className={utilStyles.heading2Xl}>¡Mucho!</h1>
