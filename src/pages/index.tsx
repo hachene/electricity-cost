@@ -13,6 +13,7 @@ const siteTitle = getAppName()
 export default function Home() {
   const renderCost = () => {
     const currentTime = getToday()
+    console.log('🚀 Current Time', currentTime)
     const costLevel = getCurrentCost(currentTime)
 
     if (costLevel === CostLevel.high) return <PeakCost />
