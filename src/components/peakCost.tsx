@@ -3,7 +3,7 @@ import utilStyles from '@src/styles/utils.module.css'
 import Image from 'next/image'
 
 export const PeakCost = () => (
-  <div className={layoutStyles.semaphoreContainer}>
+  <div className={`${layoutStyles.semaphoreContainer} ${layoutStyles.redSemaphore}`}>
     <Image
       priority
       src="/images/face_angry_person_man.png"

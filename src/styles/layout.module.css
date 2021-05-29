@@ -6,11 +6,23 @@
   padding: 1rem;
   min-height: 10vh;
 }
+
 .semaphoreContainer {
   min-height: 90vh;
   padding: 6rem 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.redSemaphore {
   background-color: #ff6f69;
+}
+
+.yellowSemaphore {
+  background-color: #ffcc5c;
+}
+
+.greenSemaphore {
+  background-color: #88d8b0;
 }
