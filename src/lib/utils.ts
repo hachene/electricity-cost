@@ -1,3 +1,3 @@
 export function getAppName(): string {
-  return 'HN webapp template'
+  return '💡️ ¿Cuánto cuesta la luz ahora?'
 }
