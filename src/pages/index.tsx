@@ -12,6 +12,7 @@ import { GetServerSideProps } from 'next'
 const siteTitle = getAppName()
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
+  console.log('Get server side being called! 🔥️')
   const currentTime = getToday()
   const costLevel = getCurrentCost(currentTime)
   return {
