@@ -22,6 +22,7 @@ const calculate = () => {
 }
 
 const renderCost = (c: CostLevel) => {
+  return <OffpeakCost />
   console.log('🚀 ~ file: index.tsx ~ line 29 ~ renderCost ~ c', c)
   if (c === CostLevel.high) return <PeakCost />
   if (c === CostLevel.medium) return <MediumCost />
