@@ -17,6 +17,7 @@ export const NATIONAL_HOLIDAYS = [
 ]
 
 export const getCurrentCost = (currentTime: Date): CostLevel => {
+  console.log('🚀 ~ file: costCalculation.ts ~ line 20 ~ getCurrentCost ~ currentTime', currentTime)
   const hours = currentTime.getHours()
   const weekDay = currentTime.getDay()
   const dateWithoutTime = currentTime.toDateString()
