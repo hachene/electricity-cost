@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { useState } from 'react'
+import React from 'react'
 import utilStyles from '../styles/utils.module.css'
 import layoutStyles from '../styles/layout.module.css'
 import { getAppName, getToday } from '@src/lib/utils'
@@ -7,33 +7,16 @@ import { PeakCost } from '@src/components/peakCost'
 import { MediumCost } from '@src/components/mediumCost'
 import { OffpeakCost } from '@src/components/offpeakCost'
 import { CostLevel, getCurrentCost } from '@src/domain/costCalculation'
-import { GetServerSideProps } from 'next'
 
 const siteTitle = getAppName()
 
-export const getServerSideProps: GetServerSideProps<any> = async () => {
-  return { props: { testProp: new Date() } }
-}
-
-const calculate = () => {
-  console.log('Calculating! 🔥️')
-  const currentTime = getToday()
-  return getCurrentCost(currentTime)
-}
-
 const renderCost = (c: CostLevel) => {
-  return <OffpeakCost />
-  console.log('🚀 ~ file: index.tsx ~ line 29 ~ renderCost ~ c', c)
   if (c === CostLevel.high) return <PeakCost />
   if (c === CostLevel.medium) return <MediumCost />
   return <OffpeakCost />
 }
 
-export default function Home({ testProp }: any) {
-  console.log('🚀 ~ file: index.tsx ~ line 32 ~ Home ~ testProp', testProp)
-
-  const [costLevel] = useState(calculate())
-
+export default function Home({ currentCost }: any) {
   return (
     <div>
       <Head>
@@ -52,7 +35,13 @@ export default function Home({ testProp }: any) {
       <header className={layoutStyles.header}>
         <h1 className={utilStyles.headingXl}>{siteTitle}</h1>
       </header>
-      <OffpeakCost />
+      {renderCost(currentCost)}
     </div>
   )
+}
+
+Home.getInitialProps = async (ctx: any) => {
+  const currentTime = getToday()
+  const currentCost = getCurrentCost(currentTime)
+  return currentCost
 }
