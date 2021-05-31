@@ -3,7 +3,7 @@ import utilStyles from '../styles/utils.module.css'
 import Image from 'next/image'
 
 export const PeakCost = () => (
-  <div style={{ background: 'red' }}>
+  <div id="peak-cost-div" style={{ background: 'red' }}>
     <Image
       priority
       src="/images/face_angry.png"
