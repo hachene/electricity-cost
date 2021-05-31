@@ -10,16 +10,12 @@ import { CostLevel, getCurrentCost } from '@src/domain/costCalculation'
 
 const siteTitle = getAppName()
 
-export default function Home() {
-  const renderCost = () => {
-    const currentTime = getToday()
-    const costLevel = getCurrentCost(currentTime)
-
-    if (costLevel === CostLevel.high) return <PeakCost />
-    if (costLevel === CostLevel.medium) return <MediumCost />
-    return <OffpeakCost />
-  }
-
+const renderCost = (costLevel: CostLevel) => {
+  if (costLevel === CostLevel.high) return <PeakCost />
+  if (costLevel === CostLevel.medium) return <MediumCost />
+  return <OffpeakCost />
+}
+export default function Home({ costLevel }: HomeProps) {
   return (
     <div>
       <Head>
@@ -38,7 +34,15 @@ export default function Home() {
       <header className={layoutStyles.header}>
         <h1 className={utilStyles.headingXl}>{siteTitle}</h1>
       </header>
-      {renderCost()}
+      {renderCost(costLevel)}
     </div>
   )
 }
+
+Home.getInitialProps = async () => {
+  const currentTime = getToday()
+  const currentCost = getCurrentCost(currentTime)
+  return currentCost
+}
+
+type HomeProps = { costLevel: CostLevel }
