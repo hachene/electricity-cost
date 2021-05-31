@@ -3,7 +3,7 @@ import utilStyles from '../styles/utils.module.css'
 import Image from 'next/image'
 
 export const MediumCost = () => (
-  <div className={`${layoutStyles.semaphoreContainer} ${layoutStyles.yellowSemaphore}`}>
+  <div style={{ background: 'yellow' }}>
     <Image
       priority
       src="/images/face_thinking.png"
