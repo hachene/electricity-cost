@@ -18,6 +18,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   return {
     props: {
       costLevel,
+      currentTime,
     },
   }
 }
@@ -29,7 +30,8 @@ const renderCost = (c: CostLevel) => {
   return <OffpeakCost />
 }
 
-export default function Home({ costLevel }: HomeProps) {
+export default function Home({ costLevel, currentTime }: HomeProps) {
+  console.log('🚀 ~ file: index.tsx ~ line 34 ~ Home ~ currentTime', currentTime)
   console.log('🔥️🔥️')
   return (
     <div>
@@ -54,4 +56,4 @@ export default function Home({ costLevel }: HomeProps) {
   )
 }
 
-type HomeProps = { costLevel: CostLevel }
+type HomeProps = { costLevel: CostLevel; currentTime: Date }
