@@ -7,19 +7,27 @@ import { PeakCost } from '@src/components/peakCost'
 import { MediumCost } from '@src/components/mediumCost'
 import { OffpeakCost } from '@src/components/offpeakCost'
 import { CostLevel, getCurrentCost } from '@src/domain/costCalculation'
+import { GetServerSideProps } from 'next'
 
 const siteTitle = getAppName()
 
-export default function Home() {
-  const renderCost = () => {
-    const currentTime = getToday()
-    const costLevel = getCurrentCost(currentTime)
-
-    if (costLevel === CostLevel.high) return <PeakCost />
-    if (costLevel === CostLevel.medium) return <MediumCost />
-    return <OffpeakCost />
+export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
+  const currentTime = getToday()
+  const costLevel = getCurrentCost(currentTime)
+  return {
+    props: {
+      costLevel,
+    },
   }
+}
 
+const renderCost = (c: CostLevel) => {
+  if (c === CostLevel.high) return <PeakCost />
+  if (c === CostLevel.medium) return <MediumCost />
+  return <OffpeakCost />
+}
+
+export default function Home({ costLevel }: HomeProps) {
   return (
     <div>
       <Head>
@@ -38,7 +46,9 @@ export default function Home() {
       <header className={layoutStyles.header}>
         <h1 className={utilStyles.headingXl}>{siteTitle}</h1>
       </header>
-      {renderCost()}
+      {renderCost(costLevel)}
     </div>
   )
 }
+
+type HomeProps = { costLevel: CostLevel }
