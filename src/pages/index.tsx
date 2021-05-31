@@ -1,32 +1,12 @@
 import Head from 'next/head'
-import React, { useState } from 'react'
 import utilStyles from '../styles/utils.module.css'
 import layoutStyles from '../styles/layout.module.css'
-import { getAppName, getToday } from '@src/lib/utils'
-import { PeakCost } from '@src/components/peakCost'
-import { MediumCost } from '@src/components/mediumCost'
-import { OffpeakCost } from '@src/components/offpeakCost'
-import { CostLevel, getCurrentCost } from '@src/domain/costCalculation'
+import { getAppName } from '@src/lib/utils'
+import { RenderedCost } from '@src/components/renderedCost'
 
 const siteTitle = getAppName()
 
 export default function Home() {
-  const [currentTime, setTime] = useState(new Date('2021-06-01T01:39:23.279Z'))
-
-  const renderCost = (currentTime: any) => {
-    const costLevel = getCurrentCost(currentTime)
-    console.log('🚀 ~ file: index.tsx ~ line 18 ~ renderCost ~ costLevel', costLevel)
-
-    if (costLevel === CostLevel.high) return <PeakCost />
-    if (costLevel === CostLevel.medium) return <MediumCost />
-    return <OffpeakCost />
-  }
-
-  setTimeout(() => {
-    setTime(getToday())
-    console.log('🔥️')
-  }, 10000)
-
   return (
     <div>
       <Head>
@@ -45,7 +25,7 @@ export default function Home() {
       <header className={layoutStyles.header}>
         <h1 className={utilStyles.headingXl}>{siteTitle}</h1>
       </header>
-      {renderCost(currentTime)}
+      <RenderedCost />
     </div>
   )
 }
