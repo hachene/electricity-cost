@@ -22,6 +22,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
 }
 
 const renderCost = (c: CostLevel) => {
+  console.log('🚀 ~ file: index.tsx ~ line 29 ~ renderCost ~ c', c)
   if (c === CostLevel.high) return <PeakCost />
   if (c === CostLevel.medium) return <MediumCost />
   return <OffpeakCost />
