@@ -7,8 +7,13 @@ import { PeakCost } from '@src/components/peakCost'
 import { MediumCost } from '@src/components/mediumCost'
 import { OffpeakCost } from '@src/components/offpeakCost'
 import { CostLevel, getCurrentCost } from '@src/domain/costCalculation'
+import { GetServerSideProps } from 'next'
 
 const siteTitle = getAppName()
+
+export const getServerSideProps: GetServerSideProps<any> = async () => {
+  return { props: { testProp: new Date() } }
+}
 
 const calculate = () => {
   console.log('Calculating! 🔥️')
@@ -23,7 +28,9 @@ const renderCost = (c: CostLevel) => {
   return <OffpeakCost />
 }
 
-export default function Home() {
+export default function Home({ testProp }: any) {
+  console.log('🚀 ~ file: index.tsx ~ line 32 ~ Home ~ testProp', testProp)
+
   const [costLevel] = useState(calculate())
 
   return (
