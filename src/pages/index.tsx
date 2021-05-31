@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React from 'react'
+import React, { useState } from 'react'
 import utilStyles from '../styles/utils.module.css'
 import layoutStyles from '../styles/layout.module.css'
 import { getAppName, getToday } from '@src/lib/utils'
@@ -7,20 +7,13 @@ import { PeakCost } from '@src/components/peakCost'
 import { MediumCost } from '@src/components/mediumCost'
 import { OffpeakCost } from '@src/components/offpeakCost'
 import { CostLevel, getCurrentCost } from '@src/domain/costCalculation'
-import { GetServerSideProps } from 'next'
 
 const siteTitle = getAppName()
 
-export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
-  console.log('Get server side being called! 🔥️')
+const calculate = () => {
+  console.log('Calculating! 🔥️')
   const currentTime = getToday()
-  const costLevel = getCurrentCost(currentTime)
-  return {
-    props: {
-      costLevel,
-      currentTime,
-    },
-  }
+  return getCurrentCost(currentTime)
 }
 
 const renderCost = (c: CostLevel) => {
@@ -30,9 +23,9 @@ const renderCost = (c: CostLevel) => {
   return <OffpeakCost />
 }
 
-export default function Home({ costLevel, currentTime }: HomeProps) {
-  console.log('🚀 ~ file: index.tsx ~ line 34 ~ Home ~ currentTime', currentTime)
-  console.log('🔥️🔥️')
+export default function Home() {
+  const [costLevel] = useState(calculate())
+
   return (
     <div>
       <Head>
@@ -55,5 +48,3 @@ export default function Home({ costLevel, currentTime }: HomeProps) {
     </div>
   )
 }
-
-type HomeProps = { costLevel: CostLevel; currentTime: Date }
