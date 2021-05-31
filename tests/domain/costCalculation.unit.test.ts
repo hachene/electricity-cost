@@ -1,4 +1,5 @@
 import { CostLevel, getCurrentCost } from '@src/domain/costCalculation'
+
 describe('costCalculation', () => {
   describe('getCurrentCost', () => {
     it('returns a low cost level when the time is in the low cost time slot', () => {
