@@ -30,6 +30,7 @@ const renderCost = (c: CostLevel) => {
 }
 
 export default function Home({ costLevel }: HomeProps) {
+  console.log('🔥️🔥️')
   return (
     <div>
       <Head>
