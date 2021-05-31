@@ -52,7 +52,7 @@ export default function Home({ testProp }: any) {
       <header className={layoutStyles.header}>
         <h1 className={utilStyles.headingXl}>{siteTitle}</h1>
       </header>
-      {renderCost(costLevel)}
+      <OffpeakCost />
     </div>
   )
 }
