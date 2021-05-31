@@ -11,7 +11,7 @@ import { CostLevel, getCurrentCost } from '@src/domain/costCalculation'
 const siteTitle = getAppName()
 
 export default function Home() {
-  const [currentTime, setTime] = useState(getToday())
+  const [currentTime, setTime] = useState(new Date('2021-06-01T01:39:23.279Z'))
 
   const renderCost = (currentTime: any) => {
     const costLevel = getCurrentCost(currentTime)
@@ -23,7 +23,7 @@ export default function Home() {
   }
 
   setTimeout(() => {
-    setTime(new Date('2021-06-01T01:39:23.279Z'))
+    setTime(getToday())
     console.log('🔥️')
   }, 10000)
 
