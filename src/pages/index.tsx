@@ -2,7 +2,7 @@ import Head from 'next/head'
 import utilStyles from '../styles/utils.module.css'
 import layoutStyles from '../styles/layout.module.css'
 import { getAppName } from '@src/lib/utils'
-import { PeakCost } from '@src/components/peakCost'
+import { RenderedCost } from '@src/components/renderedCost'
 
 const siteTitle = getAppName()
 
@@ -25,7 +25,7 @@ export default function Home() {
       <header className={layoutStyles.header}>
         <h1 className={utilStyles.headingXl}>{siteTitle}</h1>
       </header>
-      <PeakCost />
+      <RenderedCost />
     </div>
   )
 }
