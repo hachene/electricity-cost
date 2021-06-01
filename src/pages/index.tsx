@@ -15,11 +15,12 @@ const renderCost = (costLevel: CostLevel) => {
   if (costLevel === CostLevel.medium) return <MediumCost />
   return <OffpeakCost />
 }
-export default function Home({ currentCost, currentTime }: HomeProps) {
-  console.log('🔥️🔥️', getToday())
-  console.log('🚀 ~ file: index.tsx ~ line 19 ~ Home ~ costLevel', currentCost)
-  console.log('🚀 ~ file: index.tsx ~ line 19 ~ Home ~ costLevel', currentTime)
-
+export default function Home({ serverTime }: HomeProps) {
+  console.log('🚀 ~ file: index.tsx ~ line 19 ~ Home ~ serverTime', serverTime)
+  const currentTime = getToday()
+  console.log('🚀 ~ file: index.tsx ~ line 21 ~ Home ~ currentTime', currentTime)
+  const currentCost = getCurrentCost(currentTime)
+  console.log('🚀 ~ file: index.tsx ~ line 23 ~ Home ~ currentCost', currentCost)
   return (
     <div>
       <Head>
@@ -37,10 +38,9 @@ export default function Home({ currentCost, currentTime }: HomeProps) {
 }
 
 Home.getInitialProps = async (): Promise<HomeProps> => {
-  const currentTime = getToday()
-  console.log('🚀 ~ file: index.tsx ~ line 37 ~ Home.getInitialProps= ~ currentTime', currentTime)
-  const currentCost = getCurrentCost(currentTime)
-  return { currentCost, currentTime }
+  const serverTime = getToday()
+
+  return { serverTime }
 }
 
-type HomeProps = { currentCost: CostLevel; currentTime: Date }
+type HomeProps = { serverTime: Date }
