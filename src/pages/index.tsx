@@ -15,9 +15,7 @@ const renderCost = (costLevel: CostLevel) => {
   if (costLevel === CostLevel.medium) return <MediumCost />
   return <OffpeakCost />
 }
-export default function Home({ currentCost, currentTime }: HomeProps) {
-  console.log('🚀 ~ file: index.tsx ~ line 19 ~ Home ~ dateFromServer', currentCost)
-  console.log('🚀 ~ file: index.tsx ~ line 19 ~ Home ~ currentTime', currentTime)
+export default function Home({ currentCost }: HomeProps) {
   return (
     <div>
       <Head>
@@ -38,7 +36,7 @@ Home.getInitialProps = async (): Promise<HomeProps> => {
   const currentTime = getToday()
   currentTime.setHours(currentTime.getHours() + 2) // FIXME: This offset only works during CEST - workaround to prevent page cache
   const currentCost = getCurrentCost(currentTime)
-  return { currentCost, currentTime }
+  return { currentCost }
 }
 
-type HomeProps = { currentCost: CostLevel; currentTime: Date }
+type HomeProps = { currentCost: CostLevel }
