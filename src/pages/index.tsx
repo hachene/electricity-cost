@@ -7,6 +7,7 @@ import { PeakCost } from '@src/components/peakCost'
 import { MediumCost } from '@src/components/mediumCost'
 import { OffpeakCost } from '@src/components/offpeakCost'
 import { CostLevel, getCurrentCost } from '@src/domain/costCalculation'
+import { PoweredBy } from '@src/components/poweredBy/poweredBy'
 
 const siteTitle = '💡️ ¿Cuánto cuesta la luz ahora?'
 
@@ -27,7 +28,10 @@ export default function Home({ currentCost }: HomeProps) {
       <header className={layoutStyles.header}>
         <h1 className={utilStyles.headingXl}>{siteTitle}</h1>
       </header>
-      {renderCost(currentCost)}
+      <div className={layoutStyles.semaphoreContainer}>{renderCost(currentCost)}</div>
+      <div className={layoutStyles.footer}>
+        <PoweredBy />
+      </div>
     </div>
   )
 }

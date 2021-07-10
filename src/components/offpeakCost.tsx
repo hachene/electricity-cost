@@ -3,7 +3,7 @@ import utilStyles from '../styles/utils.module.css'
 import Image from 'next/image'
 
 export const OffpeakCost = () => (
-  <div className={`${layoutStyles.semaphoreContainer} ${layoutStyles.greenSemaphore}`}>
+  <div className={`${layoutStyles.semaphoreInnerContainer} ${layoutStyles.greenSemaphore}`}>
     <Image
       priority
       src="/images/face_happy_yellow.png"
