@@ -17,7 +17,9 @@ const renderCost = (costLevel: CostLevel) => {
   return <OffpeakCost />
 }
 export default function Home() {
-  const [currentCost, setCurrentCost] = useState<CostLevel>()
+  const initialCost = getCurrentCost(getToday())
+
+  const [currentCost, setCurrentCost] = useState<CostLevel>(initialCost)
 
   useInterval(() => {
     const currentTime = getToday()
