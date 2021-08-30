@@ -10,6 +10,7 @@ import { CostLevel, getCurrentCost } from '@src/domain/costCalculation'
 import { PoweredBy } from '@src/components/poweredBy/poweredBy'
 
 const siteTitle = '💡️ ¿Cuánto cuesta la luz ahora?'
+const REFRESH_TIME = 1000
 
 const renderCost = (costLevel: CostLevel) => {
   if (costLevel === CostLevel.high) return <PeakCost />
@@ -23,11 +24,9 @@ export default function Home() {
 
   useInterval(() => {
     const currentTime = getToday()
-    console.log('🚀 ~ file: index.tsx ~ line 25 ~ useInterval ~ currentTime', currentTime)
     const cost = getCurrentCost(currentTime)
-    console.log('🚀 ~ file: index.tsx ~ line 27 ~ useInterval ~ cost', cost)
     setCurrentCost(cost)
-  }, 1000)
+  }, REFRESH_TIME)
 
   return (
     <div>
@@ -40,7 +39,7 @@ export default function Home() {
       <header className={layoutStyles.header}>
         <h1 className={utilStyles.headingXl}>{siteTitle}</h1>
       </header>
-      <div className={layoutStyles.semaphoreContainer}>{currentCost && renderCost(currentCost)}</div>
+      <div className={layoutStyles.semaphoreContainer}>{renderCost(currentCost)}</div>
       <div className={layoutStyles.footer}>
         <PoweredBy />
       </div>
