@@ -1,8 +1,8 @@
 import Head from 'next/head'
-import React from 'react'
+import React, { useState } from 'react'
 import utilStyles from '../styles/utils.module.css'
 import layoutStyles from '../styles/layout.module.css'
-import { getToday } from '@src/lib/utils'
+import { getToday, useInterval } from '@src/lib/utils'
 import { PeakCost } from '@src/components/peakCost'
 import { MediumCost } from '@src/components/mediumCost'
 import { OffpeakCost } from '@src/components/offpeakCost'
@@ -16,7 +16,17 @@ const renderCost = (costLevel: CostLevel) => {
   if (costLevel === CostLevel.medium) return <MediumCost />
   return <OffpeakCost />
 }
-export default function Home({ currentCost }: HomeProps) {
+export default function Home() {
+  const [currentCost, setCurrentCost] = useState<CostLevel>()
+
+  useInterval(() => {
+    const currentTime = getToday()
+    console.log('🚀 ~ file: index.tsx ~ line 25 ~ useInterval ~ currentTime', currentTime)
+    const cost = getCurrentCost(currentTime)
+    console.log('🚀 ~ file: index.tsx ~ line 27 ~ useInterval ~ cost', cost)
+    setCurrentCost(cost)
+  }, 1000)
+
   return (
     <div>
       <Head>
@@ -28,19 +38,10 @@ export default function Home({ currentCost }: HomeProps) {
       <header className={layoutStyles.header}>
         <h1 className={utilStyles.headingXl}>{siteTitle}</h1>
       </header>
-      <div className={layoutStyles.semaphoreContainer}>{renderCost(currentCost)}</div>
+      <div className={layoutStyles.semaphoreContainer}>{currentCost && renderCost(currentCost)}</div>
       <div className={layoutStyles.footer}>
         <PoweredBy />
       </div>
     </div>
   )
 }
-
-Home.getInitialProps = async (): Promise<HomeProps> => {
-  const currentTime = getToday()
-  currentTime.setHours(currentTime.getHours() + 2) // FIXME: This offset only works during CEST - workaround to prevent page cache
-  const currentCost = getCurrentCost(currentTime)
-  return { currentCost }
-}
-
-type HomeProps = { currentCost: CostLevel }
