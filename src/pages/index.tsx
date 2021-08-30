@@ -1,8 +1,8 @@
 import Head from 'next/head'
-import React from 'react'
+import React, { useState } from 'react'
 import utilStyles from '../styles/utils.module.css'
 import layoutStyles from '../styles/layout.module.css'
-import { getToday } from '@src/lib/utils'
+import { getToday, useInterval } from '@src/lib/utils'
 import { PeakCost } from '@src/components/peakCost'
 import { MediumCost } from '@src/components/mediumCost'
 import { OffpeakCost } from '@src/components/offpeakCost'
@@ -10,13 +10,24 @@ import { CostLevel, getCurrentCost } from '@src/domain/costCalculation'
 import { PoweredBy } from '@src/components/poweredBy/poweredBy'
 
 const siteTitle = '💡️ ¿Cuánto cuesta la luz ahora?'
+const REFRESH_INTERVAL = 1000
 
 const renderCost = (costLevel: CostLevel) => {
   if (costLevel === CostLevel.high) return <PeakCost />
   if (costLevel === CostLevel.medium) return <MediumCost />
   return <OffpeakCost />
 }
-export default function Home({ currentCost }: HomeProps) {
+export default function Home() {
+  const initialCost = getCurrentCost(getToday())
+
+  const [currentCost, setCurrentCost] = useState<CostLevel>(initialCost)
+
+  useInterval(() => {
+    const currentTime = getToday()
+    const cost = getCurrentCost(currentTime)
+    setCurrentCost(cost)
+  }, REFRESH_INTERVAL)
+
   return (
     <div>
       <Head>
@@ -35,12 +46,3 @@ export default function Home({ currentCost }: HomeProps) {
     </div>
   )
 }
-
-Home.getInitialProps = async (): Promise<HomeProps> => {
-  const currentTime = getToday()
-  currentTime.setHours(currentTime.getHours() + 2) // FIXME: This offset only works during CEST - workaround to prevent page cache
-  const currentCost = getCurrentCost(currentTime)
-  return { currentCost }
-}
-
-type HomeProps = { currentCost: CostLevel }
